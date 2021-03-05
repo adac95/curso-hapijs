@@ -1,0 +1,23 @@
+{
+  "name": "curso-hapijs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adac95/curso-hapijs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adac95/curso-hapijs/issues"
+  },
+  "homepage": "https://github.com/adac95/curso-hapijs#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.0"
+  }
+}
