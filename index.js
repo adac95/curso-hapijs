@@ -1,7 +1,13 @@
+
 'use strict'
 const path = require('path');
-const Inert = require('@hapi/inert');
 const Hapi = require('@hapi/hapi');
+const Inert = require('@hapi/inert');
+const Vision = require('@hapi/vision');
+const handlebars = require('handlebars');
+const { ClientRequest } = require('http');
+
+const routes = require('./routes');
 
 const init = async () => {
 
@@ -16,24 +22,19 @@ const init = async () => {
   });
 
   await server.register(Inert);
-  server.route({
-    method: 'GET',
-    path: '/home',
-    handler: (request, h) => {
-      return h.file('index.html')
-    }
-  })
-  server.route({
-    method: 'GET',
-    path: '/{param*}',
-    handler: {
-      directory: {
-        path: '.',
-        redirectToSlash: true,
-        index: true,
-      }
-    }
-  })
+  await server.register(Vision);
+
+  server.views({
+    engines: {
+      hbs: handlebars,
+    },
+    relativeTo: __dirname,
+    path: 'views',
+    layout: true,
+    layoutPath: 'views'
+  });
+
+  server.route(routes)
   await server.start();
   console.log('Server running on %s', server.info.uri);
 };
