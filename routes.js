@@ -9,13 +9,27 @@ module.exports = [
     path: '/',
     handler: site.home
   },
+//  pagina de formulario para registrar
   {
     method: 'GET',
     path: '/register',
     handler: site.register
   },
+  // pagina de login
+  {
+    method: 'GET',
+    path: '/login',
+    handler: site.login
+  },
+  // pagina de logout
+  {
+    method: 'GET',
+    path: '/logout',
+    handler: user.logout
+  },
   {
     method: 'POST',
+    path: '/create-user',
     options: {
       validate: {
         payload: Joi.object({
@@ -25,8 +39,21 @@ module.exports = [
         })
       }
     },
-    path: '/create-user',
     handler: user.createUser
+  },
+  // Registro del Login
+  {
+    method: 'POST',
+    path: '/validate-user',
+    options: {
+      validate: {
+        payload: Joi.object({
+          email: Joi.string().email().required(),
+          password: Joi.string().min(6).required()
+        })
+      }
+    },
+    handler: user.validateUser
   },
   {
     method: 'GET',

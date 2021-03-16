@@ -24,6 +24,15 @@ const init = async () => {
   await server.register(Inert);
   await server.register(Vision);
 
+  server.state('user', {
+    ttl: 1000*60*60*24, //duracion del token (1 dia) 
+    isSecure: process.env.NODE_ENV === 'prod', //propiedad para preguntar si la cookie es segura o no
+    isHttpOnly: true, 
+    encoding: 'base64json',
+    clearInvalid: true,
+    strictHeader: true
+  });
+
   server.views({
     engines: {
       hbs: handlebars,
